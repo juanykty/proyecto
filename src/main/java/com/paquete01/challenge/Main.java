@@ -4,6 +4,7 @@ package com.paquete01.challenge;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import static java.lang.Integer.parseInt;
@@ -115,7 +116,9 @@ public class Main extends javax.swing.JFrame {
             while (in.hasNext()) {
                 String data = in.nextLine();
                 integers[i++] = parseInt(data);
-            }  
+                
+            }
+            System.out.println("bulk file loaded correctly");
         } 
         catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,9 +129,25 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Arrays.sort(integers);
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("file.txt");
         for (int j = 0; j < integers.length; j++) {
-            System.out.println(integers[j]);
+            fileWriter.write(integers[j]+"\n");
         }
+            System.out.println("sucess");
+        } catch (IOException e) {
+        }finally {
+            try {
+                if (fileWriter != null) {
+                    fileWriter.flush();
+                    fileWriter.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
